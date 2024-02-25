@@ -1,0 +1,42 @@
+import tkinter
+import customtkinter
+
+customtkinter.set_appearance_mode('dark')
+customtkinter.set_default_color_theme('blue')
+note_nr = 1
+row_nr = 2
+
+
+def create_btn():
+    note_text = entry_text.get()
+    if note_text:
+        global note_nr
+        global row_nr
+        button = customtkinter.CTkButton(app, text = f'Note number: {note_nr}', command= lambda text=note_text: openfile(text))
+        button.grid(column = 1, row = row_nr,pady = 2, padx = 2)
+        row_nr += 1
+        note_nr += 1
+        entry_text.configure(text = '')
+        
+def openfile(text):
+    toplevel = customtkinter.CTkToplevel(app)
+    toplevel.title('Notatka')
+    toplevel.geometry('400x400')
+    toplevel.resizable(False,False)
+
+    label = customtkinter.CTkLabel(toplevel,text = text)
+    label.pack()
+    
+app = customtkinter.CTk()
+app.title("Note Creator")
+app.geometry('400x400')
+app.resizable(False,False)
+
+entry_text = customtkinter.CTkEntry(app,width = 200, height = 200)
+entry_text.grid(column = 0, row = 0, pady = 10, padx = 10)
+
+button_save = customtkinter.CTkButton(app,text = 'Save', command = create_btn)
+button_save.grid(column = 0, row = 1)
+
+
+app.mainloop()
